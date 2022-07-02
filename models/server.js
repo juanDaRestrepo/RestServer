@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 
+
 class Server {
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-
+        this.usersPath = '/api/users'
         //middlewares
         this.middlewares();
         //App Routes
@@ -16,38 +17,16 @@ class Server {
     middlewares() {
         //CORS
         this.app.use(cors());
+
+        //Reading and parsing body
+        this.app.use( express.json() )
+
         //Public routes
         this.app.use(express.static('public'));
     }
 
     routes() {
-        this.app.get('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'get API'
-            });
-        });
-
-        this.app.put('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'put API'
-            });
-        });
-
-        this.app.post('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'post API'
-            });
-        });
-
-        this.app.delete('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'delete API'
-            });
-        });
+        this.app.use(this.usersPath, require('../routes/user.routes'))
     }
 
     listen() {
