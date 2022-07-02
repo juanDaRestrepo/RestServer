@@ -1,5 +1,5 @@
 # Project´s description:
-This a rest server to be used in any app.
+A guide to begin with any rest server
 
 ## Tools used:
 
