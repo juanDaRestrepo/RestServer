@@ -12,3 +12,7 @@ A guide to begin with any rest server
 * Cors: is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
 
 * Mongoose: is an Object Data Modeling (ODM) library for MongoDB and Node.js. It manages relationships between data, provides schema validation, and is used to translate between objects in code and the representation of those objects in MongoDB.
+
+* bcrypt : The bcrypt npm package is a JavaScript implementation of the bcrypt password hashing function that allows you to easily create a hash out of a password string.
+
+* Express-validator:  is an Express middleware library that you can incorporate in your apps for server-side data validation.
