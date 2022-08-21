@@ -3,29 +3,30 @@ const bcryptjs = require("bcryptjs");
 
 const User = require("../models/user.model");
 
-const usersGet = async(req = request, res = response) => {
-  
+const usersGet = async (req = request, res = response) => {
   const { limit = 5, from = 0 } = req.query;
-  
-  const users = await User.find()
-    .skip(Number(from))
-    .limit(Number(limit));
+  const restrictions = { state: true };
+
+  const [total, users] = await Promise.all([
+    User.countDocuments(restrictions),
+    User.find(restrictions).skip(Number(from)).limit(Number(limit))
+  ]);
 
   res.json({
-    users,
+   total, users
   });
 };
 
-const usersPut = async(req, res = response) => {
+const usersPut = async (req, res = response) => {
   const id = req.params.id;
-  const {_id, password, google, email, ...rest } = req.body;
+  const { _id, password, google, email, ...rest } = req.body;
 
   if (password) {
     const salt = bcryptjs.genSaltSync();
     rest.password = bcryptjs.hashSync(password, salt);
   }
 
-  const user = await User.findByIdAndUpdate( id, rest );
+  const user = await User.findByIdAndUpdate(id, rest);
 
   res.json(user);
 };
@@ -44,9 +45,16 @@ const usersPost = async (req, res = response) => {
   });
 };
 
-const usersDelete = (req, res = response) => {
+const usersDelete = async(req, res = response) => {
+
+  const { id } = req.params;
+
+  //Deleting physically
+  /* const user = await User.findByIdAndDelete( id ); */
+
+  const user = await User.findByIdAndUpdate( id, {state: false})
   res.json({
-    msg: "delete API - controller",
+    user
   });
 };
 
