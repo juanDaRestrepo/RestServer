@@ -16,3 +16,5 @@ A guide to begin with any rest server
 * bcrypt : The bcrypt npm package is a JavaScript implementation of the bcrypt password hashing function that allows you to easily create a hash out of a password string.
 
 * Express-validator:  is an Express middleware library that you can incorporate in your apps for server-side data validation.
+
+* Json-web-token : is a package that allow us to work with json web tokens in our backend.
